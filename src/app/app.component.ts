@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'receipt';
+  loadFeature = 'receipt';
+
+  NavSelect(feature: string){
+    this.loadFeature = feature;
+  }
 }
+
