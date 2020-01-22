@@ -1,23 +1,25 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Receipt } from '../receipt.model';
+import { Router, ActivatedRoute } from '@angular/router';
+import { RecipeService } from '../receipt.service';
 @Component({
   selector: 'app-receipt-list',
   templateUrl: './receipt-list.component.html',
   styleUrls: ['./receipt-list.component.css']
 })
 export class ReceiptListComponent implements OnInit {
-  @Output() receiptWasSelected = new EventEmitter<Receipt>();
-  receipts: Receipt[] = [
-    new Receipt('A Test Receipt One', 'This is simply a Test', 'https://www.thecookierookie.com/wp-content/uploads/2019/08/pasta-pomodoro-recipe-3-of-7.jpg.webp'),
-    new Receipt('A Test Receipt Two', 'This is simply a Test', 'https://www.thecookierookie.com/wp-content/uploads/2019/08/pasta-pomodoro-recipe-3-of-7.jpg.webp'),
-    new Receipt('A Test Receipt Three', 'This is simply a Test', 'https://www.thecookierookie.com/wp-content/uploads/2019/08/pasta-pomodoro-recipe-3-of-7.jpg.webp')
-  ];
-  constructor() { }
+  [x: string]: any;
+ 
+  receipts: Receipt[];
+  constructor(private recipeService: RecipeService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.receipts = this.recipeService.getRecipes();
   }
 
-  getSelectedRecipe(recipe: Receipt){
-    this.receiptWasSelected.emit(recipe);
+  onNewRecipe(){
+    this.router.navigate(['new'], {relativeTo: this.route});
   }
 }

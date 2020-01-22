@@ -1,12 +1,16 @@
 <div class="row">
     <div class="col-xs-12">
-        <button class="btn btn-success">New Receipt</button>
+        <button class="btn btn-success" (click)="onNewRecipe()">New Receipt</button>
     </div>
 </div>
 <hr>
 <div class="row">
     <div class="col-xs-12">
-        <app-receipt-item *ngFor="let receiptEl of receipts" [recipe] = "receiptEl" (recipeSelected)="getSelectedRecipe(receiptEl)"></app-receipt-item>
+        <app-receipt-item 
+            *ngFor="let receiptEl of receipts; let i = index" 
+            [recipe] = "receiptEl"
+            [index] = "i"
+        ></app-receipt-item>
     </div>
 </div>
 
